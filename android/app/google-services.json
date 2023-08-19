@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "11097338794",
+    "project_id": "mentalscreen-app",
+    "storage_bucket": "mentalscreen-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11097338794:android:8c0cf18675aff8b3e9f1d3",
+        "android_client_info": {
+          "package_name": "com.zexsys.mentalscreen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11097338794-ic971bt82akoiabumrgqnsjmnai0iv4s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zexsys.mentalscreen",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "11097338794-doj4nkj9kn1uhho80rjrd809masilfcd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGTTrm3LFu66-YiF2x5X9QacaxKL8N9qY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11097338794-doj4nkj9kn1uhho80rjrd809masilfcd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,71 @@
+[debug] [2023-08-19T15:18:54.823Z] ----------------------------------------------------------------------
+[debug] [2023-08-19T15:18:54.826Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\WINDOWS\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init functions
+[debug] [2023-08-19T15:18:54.827Z] CLI Version:   12.4.8
+[debug] [2023-08-19T15:18:54.827Z] Platform:      win32
+[debug] [2023-08-19T15:18:54.827Z] Node Version:  v20.5.0
+[debug] [2023-08-19T15:18:54.827Z] Time:          Sat Aug 19 2023 22:18:54 GMT+0700 (Indochina Time)
+[debug] [2023-08-19T15:18:54.827Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-08-19T15:18:54.906Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-08-19T15:18:54.907Z] > authorizing via signed-in user (ryan0702.rw@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  R:\Local Projects\mentalscreen\mentalmeasure
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2023-08-19T15:18:57.731Z] Using project from CLI flag: mentalscreen-app
+[debug] [2023-08-19T15:18:57.734Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/mentalscreen-app [none]
+[debug] [2023-08-19T15:18:58.339Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/mentalscreen-app 200
+[debug] [2023-08-19T15:18:58.340Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/mentalscreen-app {"projectId":"mentalscreen-app","projectNumber":"11097338794","displayName":"mentalscreen","name":"projects/mentalscreen-app","resources":{"hostingSite":"mentalscreen-app"},"state":"ACTIVE","etag":"1_0648a2f3-b0fc-43ea-9094-2743352f43ad"}
+[info] i  Using project mentalscreen-app (mentalscreen) 
+[info] 
+=== Functions Setup
+[debug] [2023-08-19T15:18:58.346Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-08-19T15:18:58.346Z] > authorizing via signed-in user (ryan0702.rw@gmail.com)
+[debug] [2023-08-19T15:18:58.346Z] [iam] checking project mentalscreen-app for permissions ["firebase.projects.get"]
+[debug] [2023-08-19T15:18:58.346Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/mentalscreen-app:testIamPermissions [none]
+[debug] [2023-08-19T15:18:58.346Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/mentalscreen-app:testIamPermissions x-goog-quota-user=projects/mentalscreen-app
+[debug] [2023-08-19T15:18:58.347Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/mentalscreen-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-08-19T15:18:59.443Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/mentalscreen-app:testIamPermissions 200
+[debug] [2023-08-19T15:18:59.443Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/mentalscreen-app:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-08-19T15:18:59.444Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/mentalscreen-app/services/cloudfunctions.googleapis.com [none]
+[debug] [2023-08-19T15:18:59.444Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/mentalscreen-app/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/mentalscreen-app
+[debug] [2023-08-19T15:18:59.445Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/mentalscreen-app/services/runtimeconfig.googleapis.com [none]
+[debug] [2023-08-19T15:18:59.445Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/mentalscreen-app/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/mentalscreen-app
+[debug] [2023-08-19T15:19:00.891Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/mentalscreen-app/services/cloudfunctions.googleapis.com 200
+[debug] [2023-08-19T15:19:00.891Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/mentalscreen-app/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2023-08-19T15:19:00.996Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/mentalscreen-app/services/runtimeconfig.googleapis.com 200
+[debug] [2023-08-19T15:19:00.996Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/mentalscreen-app/services/runtimeconfig.googleapis.com [omitted]
+[info] 
+Detected existing codebase(s): default
+
+[info] 
+Overwriting codebase default...
+
+[info] +  Wrote functions/requirements.txt 
+[info] +  Wrote functions/.gitignore 
+[info] +  Wrote functions/main.py 
+[debug] [2023-08-19T15:19:09.643Z] Error: spawn python.exe ENOENT
+    at notFoundError (C:\Users\WINDOWS\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:6:26)
+    at verifyENOENT (C:\Users\WINDOWS\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:40:16)
+    at cp.emit (C:\Users\WINDOWS\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\cross-spawn\lib\enoent.js:27:25)
+    at ChildProcess._handle.onexit (node:internal/child_process:294:12)
+[error] 
+[error] Error: An unexpected error has occurred.
