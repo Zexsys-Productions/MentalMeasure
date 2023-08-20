@@ -8,6 +8,7 @@ import ChatScreen from './screens/Chat';
 import LoadingScreen from './screens/shared/Loading';
 import SettingsScreen from './screens/Settings';
 import HomeScreen from './screens/Home';
+import MoodScreen from './screens/Mood';
 
 const Stack = createStackNavigator();
 
@@ -49,6 +50,11 @@ const App = () => {
         <Stack.Screen 
           name="Settings" 
           component={SettingsScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Mood" 
+          component={MoodScreen} 
           options={{ headerShown: false }} 
         />
         {/* More screens can be added here */}

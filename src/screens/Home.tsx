@@ -37,6 +37,9 @@ const HomeScreen = () => {
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Chat')}>
           <Text style={styles.buttonText}>Chat</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Mood')}>
+          <Text style={styles.buttonText}>Mood Check</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
