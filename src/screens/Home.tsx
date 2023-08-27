@@ -27,7 +27,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       <View style={styles.header}>
-        <Image source={require('../../src/assets/logo.png')} style={styles.logo} />
+        <Image source={require('../../src/assets/transparent-logo.png')} style={styles.logo} />
         <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
           <Image source={require('../../src/assets/settings-icon.png')} style={styles.icon} />
         </TouchableOpacity>
@@ -39,6 +39,9 @@ const HomeScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Mood')}>
           <Text style={styles.buttonText}>Mood Check</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Survey')}>
+          <Text style={styles.buttonText}>Survey</Text>
         </TouchableOpacity>
       </View>
     </View>

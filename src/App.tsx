@@ -10,6 +10,12 @@ import SettingsScreen from './screens/Settings';
 import HomeScreen from './screens/Home';
 import MoodScreen from './screens/Mood';
 
+// Survey Flow
+import SurveyScreen from './screens/Survey';
+import GeneralSurvey from './screens/survey/General';
+import DepressionSurvey from './screens/survey/Depression';
+import AnxietySurvey from './screens/survey/Anxiety';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -55,6 +61,27 @@ const App = () => {
         <Stack.Screen 
           name="Mood" 
           component={MoodScreen} 
+          options={{ headerShown: false }} 
+        />
+        {/* Survey Flow */}
+        <Stack.Screen 
+          name="Survey" 
+          component={SurveyScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="GeneralSurvey" 
+          component={GeneralSurvey} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="DepressionSurvey" 
+          component={DepressionSurvey}  
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="AnxietySurvey" 
+          component={AnxietySurvey}   
           options={{ headerShown: false }} 
         />
         {/* More screens can be added here */}
