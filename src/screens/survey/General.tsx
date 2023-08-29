@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import Slider from '@react-native-community/slider';
+import { useNavigation } from '@react-navigation/native';
 
-const GeneralSurvey = () => {
+const GeneralSurvey = ({ route }) => {
   const [answers, setAnswers] = useState({
     q1: 3,
     q2: 3,
@@ -15,6 +16,8 @@ const GeneralSurvey = () => {
     q9: 3,
     q10: 3,
   });
+
+  const navigation = useNavigation();
 
   const questions = [
     'About how often did you feel tired out for no good reason?',
@@ -62,13 +65,13 @@ const GeneralSurvey = () => {
 
   const calculateTotalScore = () => {
     let totalScore = 0;
-    Object.values(answers).forEach(value => {
+    Object.values(answers).forEach((value) => {
       totalScore += value;
     });
     return totalScore;
   };
 
-  const getMentalHealthStatus = totalScore => {
+  const getMentalHealthStatus = (totalScore) => {
     if (totalScore < 20) {
       return 'Likely to be well';
     } else if (totalScore >= 20 && totalScore <= 24) {
@@ -80,10 +83,31 @@ const GeneralSurvey = () => {
     }
   };
 
+  const getSeverityColor = (totalScore) => {
+    if (totalScore < 20) {
+      return 'Green';
+    } else if (totalScore >= 20 && totalScore <= 24) {
+      return 'Yellow';
+    } else if (totalScore >= 25 && totalScore <= 29) {
+      return 'Yellow';
+    } else {
+      return 'Red';
+    }
+  };
+
   const showMentalHealthStatus = () => {
     const totalScore = calculateTotalScore();
     const mentalHealthStatus = getMentalHealthStatus(totalScore);
-    Alert.alert('Mental Health Status', mentalHealthStatus);
+    const severityLevel = getSeverityColor(totalScore);
+  
+    const { sessionId } = route.params; 
+  
+    navigation.navigate('ResultScreen', {
+      sessionId, 
+      mentalHealthStatus,
+      severityLevel,
+      surveyResults: answers,
+    });
   };
 
   return (
@@ -171,7 +195,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 20,
   },
-  
   submitButtonText: {
     color: 'white',
     fontSize: 16,

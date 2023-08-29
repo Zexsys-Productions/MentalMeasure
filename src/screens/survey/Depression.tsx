@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import Slider from '@react-native-community/slider';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { firebase } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
-const DepressionSurvey = () => {
+const DepressionSurvey = ({ route }) => {
+  const { sessionId } = route.params;
+  const navigation = useNavigation();
+  
   const [answers, setAnswers] = useState({
     q1: 0,
     q2: 0,
@@ -156,7 +162,7 @@ const DepressionSurvey = () => {
     ],
   ];
 
-  const handleSliderChange = (questionId, value) => {
+  const handleSliderChange = (questionId: string, value: number) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
       [questionId]: value,
@@ -194,26 +200,65 @@ const DepressionSurvey = () => {
     return totalScore;
   };
 
-  const getMentalHealthStatus = totalScore => {
+  const getSeverityColor = (totalScore: number) => {
+    if (totalScore <= 20) {
+      return 'Green';
+    } else if (totalScore >= 21 && totalScore <= 29) {
+      return 'Yellow';
+    } else {
+      return 'Red';
+    }
+  };  
+
+  const getMentalHealthStatus = (totalScore: number) => {
     if (totalScore <= 10) {
       return 'These ups and downs are considered normal';
-    } else if (totalScore <= 16) {
+    } else if (totalScore >= 11 && totalScore <= 16) {
       return 'Mild mood disturbance';
-    } else if (totalScore <= 20) {
+    } else if (totalScore >= 17 && totalScore <= 20) {
       return 'Borderline clinical depression';
-    } else if (totalScore <= 30) {
+    } else if (totalScore >= 21 && totalScore <= 30) {
       return 'Moderate depression';
-    } else if (totalScore <= 40) {
+    } else if (totalScore >= 31 && totalScore <= 40) {
       return 'Severe depression';
     } else {
       return 'Extreme depression';
     }
   };
 
-  const showMentalHealthStatus = () => {
+  const showMentalHealthStatus = async () => {
     const totalScore = calculateTotalScore();
     const mentalHealthStatus = getMentalHealthStatus(totalScore);
-    Alert.alert('Mental Health Status', mentalHealthStatus);
+
+    const currentUser = firebase.auth().currentUser;
+
+    if (currentUser) {
+      try {
+        const sessionRef = firestore()
+          .collection('screeningHistory')
+          .doc(currentUser.uid)
+          .collection('screeningSessions')
+          .doc(sessionId);
+
+        const severityLevel = getSeverityColor(totalScore);
+
+        await sessionRef.update({
+          mentalHealthStatus,
+          severityLevel,
+        });
+
+        navigation.navigate('ResultScreen', {
+          sessionId,
+          mentalHealthStatus,
+          severityLevel,
+          surveyResults: answers,
+        });
+      } catch (error) {
+        console.error('Error updating session:', error);
+      }
+    } else {
+      Alert.alert('User not authenticated.');
+    }
   };
 
   return (

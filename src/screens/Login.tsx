@@ -45,7 +45,8 @@ function LoginScreen({ navigation }) {
     if (!confirm) {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Phone Verification</Text>
+                <Text style={styles.title}>Login with Phone Number</Text>
+                <Text style={styles.subtitle}>Hello testers! If you don't want to give your phone number please use +1 6964205555. Enter the code '123456' later.</Text>
                 <View style={styles.phoneInputContainer}>
                     <TextInput
                         style={styles.countryCodeInput}
@@ -57,7 +58,7 @@ function LoginScreen({ navigation }) {
                     />
                     <TextInput
                         style={styles.phoneInput}
-                        placeholder="1234567890"
+                        placeholder="8128105816"
                         value={phoneNumber}
                         onChangeText={setPhoneNumber}
                         placeholderTextColor="#999"
@@ -66,14 +67,15 @@ function LoginScreen({ navigation }) {
                 <TouchableOpacity style={styles.button} onPress={() => signInWithPhoneNumber(phoneNumber)} disabled={!resendEnabled}>
                     <Text style={styles.buttonText}>Send Verification Code</Text>
                 </TouchableOpacity>
-                {!resendEnabled && <Text style={styles.resendText}>You can resend the code in 10 seconds...</Text>}
+                {!resendEnabled && <Text style={styles.resendText}>Resend code available in 10 seconds...</Text>}
             </View>
         );
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Enter Verification Code</Text>
+            <Text style={styles.title}>Verification Code</Text>
+            <Text style={styles.subtitle}>Please enter the verification code sent to your phone:</Text>
             <TextInput
                 style={styles.verificationCodeInput}
                 placeholder="Verification code"
@@ -82,7 +84,7 @@ function LoginScreen({ navigation }) {
                 placeholderTextColor="#999"
             />
             <TouchableOpacity style={styles.button} onPress={confirmCode}>
-                <Text style={styles.buttonText}>Confirm Verification Code</Text>
+                <Text style={styles.buttonText}>Verify</Text>
             </TouchableOpacity>
         </View>
     );
@@ -144,6 +146,12 @@ const styles = StyleSheet.create({
     resendText: {
         color: 'white',
         textAlign: 'center',
+    },
+    subtitle: {
+        fontSize: 18,
+        textAlign: 'center',
+        color: 'white',
+        marginBottom: 20,
     },
 });
 

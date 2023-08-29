@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TextInput, Button, ActivityIndicator, Modal, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, ActivityIndicator, Modal, TouchableOpacity, Alert } from 'react-native';
 import axios from 'axios';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const SurveyScreen = ({ navigation }) => {
   const [mentalIssues, setMentalIssues] = useState('');
@@ -10,6 +12,13 @@ const SurveyScreen = ({ navigation }) => {
   const [recommendedSurvey, setRecommendedSurvey] = useState('');
 
   const loadingTimeoutRef = useRef(null);
+  const currentSessionRef = useRef(null);
+
+  const handleCancel = () => {
+    setShowSurveyRecommendation(false);
+    setMentalIssues('');
+    navigation.navigate('Home');
+  };
 
   const handleNext = async () => {
     setIsLoading(true);
@@ -32,11 +41,27 @@ const SurveyScreen = ({ navigation }) => {
         } else if (apiResponse.includes('ANXIETY')) {
           recommendedSurveyType = 'anxiety';
         } else {
-          console.log('No survey recommendation found in API response.');
+          recommendedSurveyType = 'general';
         }
 
         setRecommendedSurvey(recommendedSurveyType);
         setShowSurveyRecommendation(true);
+
+        const currentUser = auth().currentUser;
+        const sessionId = Date.now().toString();
+
+        currentSessionRef.current = firestore()
+          .collection('screeningHistory')
+          .doc(currentUser.uid)
+          .collection('screeningSessions')
+          .doc(sessionId);
+
+        await currentSessionRef.current.set({
+          date: new Date().toISOString(),
+          inputMentalIssues: mentalIssues,
+          surveyType: '', // Placeholder for the selected survey type
+        });
+
       } else {
         console.log('Unexpected API response:', apiResponse);
       }
@@ -50,22 +75,27 @@ const SurveyScreen = ({ navigation }) => {
     }
   };
 
-  const handleSurveyChoice = (surveyType) => {
+  const handleSurveyChoice = async (surveyType) => {
     console.log('User chose:', surveyType);
-    if (surveyType === 'GENERAL') {
-      navigation.navigate('GeneralSurvey');
-    } else if (surveyType === 'DEPRESSION') {
-      navigation.navigate('DepressionSurvey');
-    } else if (surveyType === 'ANXIETY') {
-      navigation.navigate('AnxietySurvey');
-    } else {
-      Alert.alert('gg')
+    if (currentSessionRef.current) {
+      try {
+        await currentSessionRef.current.update({
+          surveyType,
+        });
+      } catch (error) {
+        console.error('Error storing survey choice:', error);
+      }
     }
-  };
 
-  const handleCancel = () => {
-    setShowSurveyRecommendation(false);
-    navigation.navigate('Home');
+    if (surveyType === 'GENERAL') {
+      navigation.navigate('GeneralSurvey', { sessionId: currentSessionRef.current.id });
+    } else if (surveyType === 'DEPRESSION') {
+      navigation.navigate('DepressionSurvey', { sessionId: currentSessionRef.current.id });
+    } else if (surveyType === 'ANXIETY') {
+      navigation.navigate('AnxietySurvey', { sessionId: currentSessionRef.current.id });
+    } else {
+      Alert.alert('gg');
+    }
   };
 
   useEffect(() => {

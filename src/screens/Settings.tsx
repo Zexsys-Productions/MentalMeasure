@@ -1,38 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, Alert, TextInput } from 'react-native';
-import styled from 'styled-components/native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons'; 
-
-const Container = styled.View`
-  flex: 1;
-  padding: 20px;
-  background-color: #121212;
-`;
-
-const Spacer = styled.View`
-  height: 28px;
-`;
-
-const BackButton = styled(TouchableOpacity)`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-`;
-
-const LogoutButton = styled(TouchableOpacity)`
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-  border-radius: 5px;
-  background-color: #0f9d58;
-`;
-
-const LogoutText = styled.Text`
-  color: #ffffff;
-`;
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const SettingsScreen = () => {
   const navigation = useNavigation();
@@ -60,25 +31,25 @@ const SettingsScreen = () => {
 
   const handleLogout = () => {
     Alert.alert(
-      "Logout",
-      "Are you sure you want to logout?",
+      'Logout',
+      'Are you sure you want to logout?',
       [
         {
-          text: "Cancel",
-          style: "cancel"
+          text: 'Cancel',
+          style: 'cancel',
         },
-        { 
-          text: "OK", 
+        {
+          text: 'OK',
           onPress: () => {
             auth()
               .signOut()
               .then(() => {
-                console.log("User signed out!");
-                navigation.navigate('Login');  
+                console.log('User signed out!');
+                navigation.navigate('Login');
               })
-              .catch(error => console.error("Sign Out Error: ", error));
-          } 
-        }
+              .catch((error) => console.error('Sign Out Error: ', error));
+          },
+        },
       ]
     );
   };
@@ -91,42 +62,106 @@ const SettingsScreen = () => {
     firestore()
       .collection('user_data')
       .doc(auth().currentUser.uid)
-      .set({
-        username: username
-      }, { merge: true })
+      .set(
+        {
+          username: username,
+        },
+        { merge: true }
+      )
       .then(() => {
-        console.log("Username updated successfully!");
+        console.log('Username updated successfully!');
       })
-      .catch(error => console.error("Update Username Error: ", error));
+      .catch((error) => console.error('Update Username Error: ', error));
+  };
+
+  const handleClearHistory = () => {
+    firestore()
+      .collection('screeningHistory')
+      .doc(auth().currentUser.uid)
+      .collection('screeningSessions')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.delete();
+        });
+
+        console.log('Screening history cleared successfully!');
+      })
+      .catch((error) => {
+        console.error('Clear History Error: ', error);
+      });
   };
 
   return (
-    <Container>
-      <BackButton onPress={() => navigation.navigate('Home')}>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
         <Icon name="arrow-back" size={24} color="#ffffff" />
-      </BackButton>
+      </TouchableOpacity>
 
-      <Spacer />
+      <View style={styles.spacer} />
 
-      <Text style={{ color: '#ffffff', marginBottom: 10 }}>Username:</Text>
+      <Text style={styles.label}>Username:</Text>
       <TextInput
-        style={{
-          backgroundColor: '#ffffff',
-          padding: 10,
-          borderRadius: 5,
-          color: '#000000'
-        }}
+        style={styles.input}
         value={username}
         onChangeText={handleUsernameChange}
       />
 
-      <Spacer />
+      <View style={styles.spacer} />
 
-      <LogoutButton onPress={handleLogout}>
-        <LogoutText>Logout</LogoutText>
-      </LogoutButton>
-    </Container>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.buttonText}>Logout</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.clearHistoryButton} onPress={handleClearHistory}>
+        <Text style={styles.buttonText}>Clear Screening History</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#121212',
+  },
+  spacer: {
+    height: 28,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+  },
+  label: {
+    color: '#ffffff',
+    marginBottom: 10,
+  },
+  input: {
+    backgroundColor: '#ffffff',
+    padding: 10,
+    borderRadius: 5,
+    color: '#000000',
+  },
+  logoutButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#0f9d58',
+  },
+  clearHistoryButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#e74c3c',
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#ffffff',
+  },
+});
 
 export default SettingsScreen;

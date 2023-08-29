@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import Slider from '@react-native-community/slider';
+import { useNavigation } from '@react-navigation/native';
+import { firebase } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
-const AnxietySurvey = () => {
+const AnxietySurvey = ({ route }) => {
+  const { sessionId } = route.params;
+  const navigation = useNavigation();
   const [answers, setAnswers] = useState({
     q1: 0,
     q2: 0,
@@ -52,7 +57,7 @@ const AnxietySurvey = () => {
     'Hot / cold sweats',
   ];
 
-  const handleSliderChange = (questionId, value) => {
+  const handleSliderChange = (questionId: string, value: number) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
       [questionId]: value,
@@ -93,7 +98,17 @@ const AnxietySurvey = () => {
     return totalScore;
   };
 
-  const getMentalHealthStatus = (totalScore) => {
+  const getSeverityColor = (totalScore: number) => {
+    if (totalScore <= 21) {
+      return 'Green';
+    } else if (totalScore >= 22 && totalScore <= 35) {
+      return 'Yellow';
+    } else {
+      return 'Red';
+    }
+  };  
+
+  const getMentalHealthStatus = (totalScore: number) => {
     if (totalScore >= 0 && totalScore <= 21) {
       return 'Low anxiety';
     } else if (totalScore >= 22 && totalScore <= 35) {
@@ -103,11 +118,41 @@ const AnxietySurvey = () => {
     }
   };
 
-  const showMentalHealthStatus = () => {
+  const showMentalHealthStatus = async () => {
     const totalScore = calculateTotalScore();
     const mentalHealthStatus = getMentalHealthStatus(totalScore);
-    Alert.alert('Mental Health Status', mentalHealthStatus);
+
+    const currentUser = firebase.auth().currentUser;
+
+    if (currentUser) {
+      try {
+        const sessionRef = firestore()
+          .collection('screeningHistory')
+          .doc(currentUser.uid)
+          .collection('screeningSessions')
+          .doc(sessionId);
+
+        const severityLevel = getSeverityColor(totalScore);
+
+        await sessionRef.update({
+          mentalHealthStatus,
+          severityLevel,
+        });
+
+        navigation.navigate('ResultScreen', {
+          sessionId,
+          mentalHealthStatus,
+          severityLevel,
+          surveyResults: answers,
+        });
+      } catch (error) {
+        console.error('Error updating session:', error);
+      }
+    } else {
+      Alert.alert('User not authenticated.');
+    }
   };
+
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>

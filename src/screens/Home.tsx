@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused(); 
   const [username, setUsername] = useState('');
+  const [recentScreenings, setRecentScreenings] = useState([]);
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -18,9 +20,32 @@ const HomeScreen = () => {
       if (userDocument.exists) {
         setUsername(userDocument.data().username);
       }
+
+      if (isFocused) {
+        fetchUsername();
+        fetchRecentScreenings();
+      }
+    };
+
+    const fetchRecentScreenings = async () => {
+      try {
+        const screeningSessionsSnapshot = await firestore()
+          .collection('screeningHistory')
+          .doc(auth().currentUser.uid)
+          .collection('screeningSessions')
+          .orderBy('date', 'desc')
+          .limit(4)
+          .get();
+
+        const recentScreeningsData = screeningSessionsSnapshot.docs.map((doc) => doc.data());
+        setRecentScreenings(recentScreeningsData);
+      } catch (error) {
+        console.error('Error fetching recent screenings:', error);
+      }
     };
 
     fetchUsername();
+    fetchRecentScreenings();
   }, []);
 
   return (
@@ -34,15 +59,20 @@ const HomeScreen = () => {
       </View>
       <View style={styles.content}>
         <Text style={styles.title}>Welcome back{username ? `, ${username}` : ''}!</Text>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Chat')}>
-          <Text style={styles.buttonText}>Chat</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Mood')}>
-          <Text style={styles.buttonText}>Mood Check</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Survey')}>
-          <Text style={styles.buttonText}>Survey</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Survey')}>
+            <Text style={styles.buttonText}>Start Survey</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.recentTitle}>Recent Screenings:</Text>
+        {recentScreenings.map((screening, index) => (
+        <View key={index} style={styles.recentScreening}>
+          <Text>Date: {new Date(screening.date).toLocaleString()}</Text>
+          <Text>Mental Health Status: {screening.mentalHealthStatus}</Text>
+          <Text>Severity Level: {screening.severityLevel}</Text>
+          {/* Display other screening information */}
+        </View>
+      ))}
       </View>
     </View>
   );
@@ -79,20 +109,33 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 20,
     backgroundColor: '#1F1F1F',
-    alignItems: 'flex-start',
+  },
+  buttonContainer: {
+    marginBottom: 20,
   },
   button: {
     backgroundColor: '#0f9d58',
     padding: 20,
     borderRadius: 7,
-    width: '30%',
+    width: '60%',
     alignItems: 'center',
-    marginTop: 10,
   },
   buttonText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
+  },
+  recentTitle: {
+    fontSize: 20,
+    color: '#fff',
+    marginBottom: 10,
+  },
+  recentScreening: {
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+    width: '95%', 
   },
 });
 
