@@ -1,6 +1,8 @@
 # MentalMeasure - Mental Health Screening App
 
-![MentalMeasure Logo](https://media.discordapp.net/attachments/1015651342892671026/1147914466579714159/n_Sl3Ld1.png?width=671&height=671)
+<p align="center">
+  <img src="https://media.discordapp.net/attachments/1015651342892671026/1147914466579714159/n_Sl3Ld1.png?width=671&height=671"/>
+</p>
 
 MentalMeasure is an open-source mental health screening app designed to help individuals assess their mental well-being. It offers various surveys to evaluate different aspects of mental health, including anxiety and depression, and provides users with feedback in the form of a green, yellow, or red light based on their responses.
 
