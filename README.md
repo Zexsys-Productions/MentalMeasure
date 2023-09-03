@@ -38,11 +38,12 @@ MentalMeasure is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-If you have any questions or feedback, feel free to reach out to us at your-email@example.com.
+If you have any questions or feedback, feel free to reach out to us at steven.matt.sil@gmail.com.
 
 ## Acknowledgments
 
 We'd like to thank the open-source community for their support and contributions to MentalMeasure.
+In addition, the helpful psychiatrists and general practitioners for their advice!
 
 ---
 
