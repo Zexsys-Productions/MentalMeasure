@@ -18,23 +18,7 @@ MentalMeasure is an open-source mental health screening app designed to help ind
 
 ## Getting Started
 
-To use MentalMeasure, follow these steps:
-
-1. Clone the repository: `git clone https://github.com/your-username/mentalmeasure.git`
-
-2. Install the required dependencies: `npm install` or `yarn install`
-
-3. Start the app: `npm start` or `yarn start`
-
-4. Access MentalMeasure in your web browser at `http://localhost:3000`
-
-## Contributing
-
-We welcome contributions from the open-source community to improve and expand MentalMeasure. If you'd like to contribute, please follow our [Contributing Guidelines](CONTRIBUTING.md).
-
-## License
-
-MentalMeasure is licensed under the [MIT License](LICENSE).
+To use MentalMeasure, you can participate in the beta test on Firebase App Distribution. [Click here to participate](https://appdistribution.firebase.dev/i/f8933106d5f207bb)
 
 ## Contact
 
