@@ -1,79 +1,47 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# MentalMeasure - Mental Health Screening App
 
-# Getting Started
+![MentalMeasure Logo](link-to-your-logo.png)
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+MentalMeasure is an open-source mental health screening app designed to help individuals assess their mental well-being. It offers various surveys to evaluate different aspects of mental health, including anxiety and depression, and provides users with feedback in the form of a green, yellow, or red light based on their responses.
 
-## Step 1: Start the Metro Server
+## Features
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- **Mental Health Surveys**: MentalMeasure offers a range of surveys to assess various mental health conditions, including anxiety and depression.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **Instant Feedback**: After completing a survey, users receive immediate feedback with a color-coded indicator (green, yellow, or red) to help them gauge their mental health status.
 
-```bash
-# using npm
-npm start
+- **User-Friendly Interface**: The app provides a simple and intuitive user interface, making it accessible to people of all ages and backgrounds.
 
-# OR using Yarn
-yarn start
-```
+- **Privacy and Security**: We prioritize user privacy and data security, ensuring that all information provided during the surveys is kept confidential.
 
-## Step 2: Start your Application
+## Getting Started
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+To use MentalMeasure, follow these steps:
 
-### For Android
+1. Clone the repository: `git clone https://github.com/your-username/mentalmeasure.git`
 
-```bash
-# using npm
-npm run android
+2. Install the required dependencies: `npm install` or `yarn install`
 
-# OR using Yarn
-yarn android
-```
+3. Start the app: `npm start` or `yarn start`
 
-### For iOS
+4. Access MentalMeasure in your web browser at `http://localhost:3000`
 
-```bash
-# using npm
-npm run ios
+## Contributing
 
-# OR using Yarn
-yarn ios
-```
+We welcome contributions from the open-source community to improve and expand MentalMeasure. If you'd like to contribute, please follow our [Contributing Guidelines](CONTRIBUTING.md).
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## License
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+MentalMeasure is licensed under the [MIT License](LICENSE).
 
-## Step 3: Modifying your App
+## Contact
 
-Now that you have successfully run the app, let's modify it.
+If you have any questions or feedback, feel free to reach out to us at your-email@example.com.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Acknowledgments
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+We'd like to thank the open-source community for their support and contributions to MentalMeasure.
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Note:** MentalMeasure is not a replacement for professional mental health advice or diagnosis. If you or someone you know is struggling with mental health issues, please seek help from a qualified healthcare provider.
